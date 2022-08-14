@@ -9,10 +9,13 @@ class Game:
     def __init__(self):
         dpg.create_context()
         dpg.create_viewport(title='Custom Title', width=1280, height=720)
+        dpg.maximize_viewport()
         dpg.setup_dearpygui()
 
+        with dpg.window(tag="Primary Window"):
+            dpg.add_text("Hello, world")
 
-
+        dpg.set_primary_window("Primary Window", True)
 
     def run(self):
         dpg.show_viewport()
