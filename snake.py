@@ -4,38 +4,47 @@ from vector import PyVector2D
 class Snake:
     def __init__(self, position: PyVector2D):
         self.position = position
-
+        self. direction = PyVector2D()
         self.speed = 5
 
-
-
-
-
-
-    def update(self, deltatime):
-        self.input(deltatime)
-        self.draw()
-
     def draw(self):
-        with dpg.window():
-            with dpg.drawlist(width=1280, height=720, parent='viewport_back'):
-                dpg.draw_circle((self.position.x, self.position.y), 15, color=(255, 255, 255, 255))
+        with dpg.window(width=1280, height=720):
+            with dpg.drawlist(width=1280, height=720):
+                dpg.draw_circle((self.position.x, self.position.y), 15, color=(255, 255, 255, 255), fill=(50, 255, 255, 255), label='snake')
 
 
 
     def input(self, deltatime):
+        # Move Up (w)
         if dpg.is_key_down(dpg.mvKey_W):
-            print('Moving Up')
-            self.position.y -= 3 * deltatime + self.speed
-
+            #self.position.y -= 1 * deltatime + self.speed
+            self.direction.y = -1
+            self.direction.x = 0
+        # Move Down (s)
         if dpg.is_key_down(dpg.mvKey_S):
-            print('Moving Down')
-            self.position.y += 3 * deltatime + self.speed
-
+            #self.position.y += 1 * deltatime + self.speed
+            self.direction.y = 1
+            self.direction.x = 0
+        # Move Right (d)
         if dpg.is_key_down(dpg.mvKey_D):
-            print('Moving Right')
-            self.position.x += 3 * deltatime + self.speed
-
+            #self.position.x += 1 * deltatime + self.speed
+            self.direction.x = 1
+            self.direction.y = 0
+        # Move Left (a)
         if dpg.is_key_down(dpg.mvKey_A):
-            print('Moving Left')
-            self.position.x -= 3 * deltatime + self.speed
+            #self.position.x -= 1 * deltatime + self.speed
+            self.direction.x = -1
+            self.direction.y = 0
+
+
+    def move(self, deltatime):
+        if self.direction.x == 1:
+            self.position.x += 1 * deltatime + self.speed
+        if self.direction.x == -1:
+            self.position.x -= 1 * deltatime + self.speed
+        if self.direction.y == 1:
+            self.position.y += 1 * deltatime + self.speed
+        if self.direction.y == -1:
+            self.position.y -= 1 * deltatime + self.speed
+
+

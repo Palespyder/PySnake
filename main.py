@@ -4,8 +4,6 @@ import math
 from snake import Snake
 from vector import *
 
-dt = 0
-new_x = 100
 
 class Game:
     def __init__(self):
@@ -24,6 +22,8 @@ class Game:
 
 
 
+
+
         # Game Loop
         while dpg.is_dearpygui_running():
 
@@ -33,10 +33,10 @@ class Game:
 
 
 
-            # Render the Interface
-            player.update(dt)
+            player.input(dt)
+            player.move(dt)
+            player.draw()
             dpg.render_dearpygui_frame()
-
 
 
         dpg.destroy_context()
